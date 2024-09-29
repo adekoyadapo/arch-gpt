@@ -1,0 +1,7 @@
+streamlit
+langchain-openai
+langchain
+openai
+python-dotenv
+diagrams
+graphviz
