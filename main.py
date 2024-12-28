@@ -1,4 +1,4 @@
-from langchain_openai import AzureChatOpenAI
+from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 import streamlit as st
@@ -23,16 +23,27 @@ Your job is to write the python code using Diagram module to generate a cloud ar
     """
 pt = ChatPromptTemplate.from_template(ts)
 
-# Load the Azure OpenAI model using environment variables for API keys
+# Load the OpenAI model using environment variables for API keys
 # Azure OpenAI LLM setup
-llm = AzureChatOpenAI(
-    openai_api_key=os.getenv("AZURE_OPENAI_API_KEY"),
-    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-    deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME"),
-    openai_api_version="2024-02-01",
-    max_tokens=4096,
-    temperature=0.0
-)
+
+if os.getenv("AZURE_OPENAI_API_KEY") is not None:
+    llm = AzureChatOpenAI(
+        openai_api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+        azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+        deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME"),
+        openai_api_version="2024-02-01",
+        max_tokens=4096,
+        temperature=0.0
+    )
+else:
+    llm = ChatOpenAI(
+        openai_api_key=os.getenv("OPENAI_API_KEY"),
+        base_url=os.getenv("OPENAI_API_BASE_URL"),
+        model=os.getenv("OPENAI_API_MODEL") or 'llama3:8b-instruct-q8_0',
+        max_tokens=8132,
+        temperature=0.5,
+        
+    )
 
 # Chain to handle input and output
 qa_chain = LLMChain(llm=llm, prompt=pt)

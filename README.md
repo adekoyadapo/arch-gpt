@@ -2,13 +2,14 @@
 
 ## Overview
 
-This application, built using **Streamlit** and **Azure OpenAI**, allows you to create Python code for cloud architecture diagrams based on user input. It utilizes the **Langchain** framework with **Azure OpenAI's GPT-4 model** to generate the required Python code for cloud diagrams, which are created using the **Diagrams** module. 
+This application, built using **Streamlit** and **OpenAI** endpoints (Azure, OpenAI, Ollama, LMStudio), allows you to create Python code for cloud architecture diagrams based on user input. It utilizes the **Langchain** framework with **Various OpenAI based endpoints** to generate the required Python code for cloud diagrams, which are created using the **Diagrams** module. 
 
 The app accepts user input describing a cloud architecture and then generates the corresponding Python code using the **Diagrams** module to visualize the architecture. The generated diagram is automatically displayed in the app interface.
 
 ## Features
 
 - **Streamlit-based UI**: Provides a simple interface for user input.
+- **Other OpenAI Integration**: Leverages the models from notable OpenAI endpoints to generate Python code.
 - **Azure OpenAI Integration**: Leverages the GPT-4 model from Azure OpenAI to generate Python code.
 - **Automatic Diagram Generation**: Uses the `Diagrams` module to create cloud architecture diagrams.
 - **Dynamic Rendering**: Automatically runs the generated Python code to create and display the architecture diagram.
@@ -16,8 +17,8 @@ The app accepts user input describing a cloud architecture and then generates th
 ## How It Works
 
 1. The user inputs a request in the text area describing their cloud architecture diagram.
-2. The app sends the user's input to the GPT-4 model via **Azure OpenAI**.
-3. GPT-4 generates Python code using the **Diagrams** library.
+2. The app sends the user's input to the model via **OpenAI python class**.
+3. Model generates Python code using the **Diagrams** library.
 4. The generated Python code is saved to a file, executed, and the diagram (saved as a `.png`) is displayed in the app.
 
 ## How to Run the Application
@@ -96,6 +97,12 @@ The app will start, and you can interact with it via your web browser. Enter you
 AZURE_OPENAI_API_KEY=your_azure_openai_api_key_here
 AZURE_OPENAI_ENDPOINT=https://your-openai-resource-name.openai.azure.com/
 AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
+```
+
+```
+OPENAI_API_KEY='ollama'
+OPENAI_API_BASE_URL='http://localhost:11434/v1'
+OPENAI_API_MODEL='llama3:8b-instruct-q8_0'
 ```
 
 ## Example Usage
